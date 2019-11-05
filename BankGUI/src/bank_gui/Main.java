@@ -1,16 +1,18 @@
 package bank_gui;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.*;
 
-public class Main{
-	public Main() {
-		JFrame frame = new JFrame("수진은행 ATM입니다.");
+public class Main extends JPanel{
+	private Start start;
+	
+	public Main(Start start) {
+		this.start = start;
 		
 		GridLayout g1 = new GridLayout(2, 0);
-		
-		JPanel panel1 = new JPanel();
-		panel1.setLayout(g1);
 		
 		MainButtons mb = new MainButtons();
 
@@ -19,20 +21,46 @@ public class Main{
 		
 		JLabel mainImage = new JLabel(main_edit);
 		
-		panel1.add(mainImage);
-		panel1.add(mb.buttonsPanel);
+		setLayout(g1);
 		
-		frame.add(panel1);
+		add(mainImage);
+		add(mb.buttonsPanel);
 		
-		frame.setPreferredSize(new Dimension(800, 600));
-		frame.setLocation(500, 200);
-		frame.pack();
-		frame.setVisible(true);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		mb.create.addActionListener(new createListener());
+		mb.record.addActionListener(new recordListener());
+		mb.send.addActionListener(new sendListener());
+		mb.deposit.addActionListener(new depositListener());
+		mb.withdraw.addActionListener(new withdrawListener());
+		
 	}
-	
-	
-    public static void main(String[] args) {
-    	new Main();
-    }
+	class createListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			start.mainChange("create");
+		}
+	}
+	class recordListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			start.mainChange("record");
+		}
+	}
+	class sendListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			start.mainChange("send");
+		}
+	}
+	class depositListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			start.mainChange("deposit");
+		}
+	}
+	class withdrawListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			start.mainChange("withdraw");
+		}
+	}
 }
