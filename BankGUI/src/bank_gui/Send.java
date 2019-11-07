@@ -101,6 +101,7 @@ public class Send extends JPanel{
 				
 				int result = bankDbBean.Send(takeAccount, giveAccount, pw, money);
 				
+				//결과에 따라서 창을 띄우게 하는 메소드로 보낸다
 				if(result == 0) {
 					start.sendChange("error"); //실패
 				}
